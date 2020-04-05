@@ -24,7 +24,7 @@ class LessonPresenter {
         this.activity = activity
     }
 
-   var lessons: List<Lesson> = ArrayList()
+    var lessons: List<Lesson> = ArrayList()
     private val type: Type = object : TypeToken<List<Lesson?>?>() {}.type
     fun fetchData() {
         get(LESSON_PATH, type, object : EntityCallback<List<Lesson>> {
@@ -34,18 +34,12 @@ class LessonPresenter {
             }
 
             override fun onFailure(message: String) {
-                activity.runOnUiThread {toast(message) }
+                activity.runOnUiThread { toast(message) }
             }
         })
     }
 
     fun showPlayback() {
-        val playbackLessons: MutableList<Lesson> = ArrayList()
-        for (lesson in lessons) {
-            if (lesson.getState() === Lesson.State.PLAYBACK) {
-                playbackLessons.add(lesson)
-            }
-        }
-        activity.showResult(playbackLessons)
+        activity.showResult(lessons.filter { it.state === Lesson.State.PLAYBACK })
     }
 }

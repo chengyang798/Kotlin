@@ -17,27 +17,17 @@ import java.util.*
  * @date    2020-04-03
  */
 
-class CodeView : AppCompatTextView{
+class CodeView @JvmOverloads constructor(context: Context?,att:AttributeSet? = null) :
+        AppCompatTextView
+(context,
+        att){
 
-    constructor(context: Context?) : this(context,null)
-
-    constructor(context: Context?,att:AttributeSet?):super(context,att){
-
-        setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
-        setGravity(Gravity.CENTER)
-        setBackgroundColor(getContext().getColor(R.color.colorPrimary))
-        setTextColor(Color.WHITE)
-
-        paint.setAntiAlias(true);
-        paint.setStyle(Paint.Style.STROKE)
-        paint.setColor(getContext().getColor(R.color.colorAccent))
-        paint.setStrokeWidth(dp2px(6f))
-
-        updateCode()
+    private val paint = Paint().apply {
+        isAntiAlias = true;
+        style = Paint.Style.STROKE
+        color = getContext().getColor(R.color.colorAccent)
+        strokeWidth = 6f.dp2px()
     }
-
-    private val paint = Paint()
-
     private val codeList = arrayOf(
             "kotlin",
             "android",
@@ -48,6 +38,17 @@ class CodeView : AppCompatTextView{
             "retrofit",
             "tcp/ip"
     )
+    init {
+
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+        setGravity(Gravity.CENTER)
+        setBackgroundColor(getContext().getColor(R.color.colorPrimary))
+        setTextColor(Color.WHITE)
+
+        updateCode()
+    }
+
+
 
     public fun updateCode() {
         val random = Random().nextInt(codeList.size)

@@ -10,9 +10,8 @@ import android.content.Context
 class BaseApplication:Application() {
     companion object{
         lateinit var currentApplication:Context
-        fun currentApplication():Context{
-            return currentApplication
-        }
+
+        private set
     }
 
     override fun attachBaseContext(base: Context?) {
